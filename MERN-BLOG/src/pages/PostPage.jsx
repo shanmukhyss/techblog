@@ -53,12 +53,12 @@ export default function PostPage() {
 
   if (loading)
     return (
-      <div className='flex justify-center items-center min-h-screen bg-white dark:bg-black'>
+      <div className='flex justify-center items-center min-h-screen'>
         <Spinner size='xl' />
       </div>
     );
   return (
-    <main className='p-3 flex flex-col w-full mx-auto min-h-screen bg-white dark:bg-black text-black dark:text-gray-300'>
+    <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
       <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
         {post && post.title}
       </h1>
@@ -73,16 +73,16 @@ export default function PostPage() {
       <img
         src={post && post.image}
         alt={post && post.title}
-        className='mt-10 p-3 max-h-[600px] w-full object-cover border border-gray-300 dark:border-gray-700 rounded-lg'
+        className='mt-10 p-3 max-h-[600px] w-full object-cover'
       />
-      <div className='flex justify-between p-3 border-b border-gray-300 dark:border-gray-700 mx-auto w-full max-w-2xl text-xs'>
+      <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
         <span className='italic'>
           {post && (post.content.length / 1000).toFixed(0)} mins read
         </span>
       </div>
       <div
-        className='p-3 max-w-2xl mx-auto w-full post-content bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg'
+        className='p-3 max-w-2xl mx-auto w-full post-content'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
       <div className='max-w-4xl mx-auto w-full'>

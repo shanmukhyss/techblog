@@ -6,7 +6,7 @@ import {
   HiDocumentText,
   HiOutlineUserGroup,
 } from 'react-icons/hi';
-import { Button, Table } from 'flowbite-react';
+import { Button, ListGroup, Table } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 export default function DashboardComp() {
@@ -128,27 +128,23 @@ export default function DashboardComp() {
               <Link to={'/dashboard?tab=users'}>See all</Link>
             </Button>
           </div>
-          <Table hoverable>
-            <Table.Head>
-              <Table.HeadCell>User image</Table.HeadCell>
-              <Table.HeadCell>Username</Table.HeadCell>
-            </Table.Head>
-            {users &&
-              users.map((user) => (
-                <Table.Body key={user._id} className='divide-y'>
-                  <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                    <Table.Cell>
-                      <img
-                        src={user.profilePicture}
-                        alt='user'
-                        className='w-10 h-10 rounded-full bg-gray-500'
-                      />
-                    </Table.Cell>
-                    <Table.Cell>{user.username}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
-          </Table>
+          <div className="w-full max-w-lg mx-auto">
+      <ListGroup className="divide-y divide-gray-200 dark:divide-gray-700">
+        {users &&
+          users.map((user) => (
+            <ListGroup.Item key={user._id} className="flex items-center gap-4 py-3">
+              <img
+                src={user.profilePicture}
+                alt='user'
+                className='w-12 h-12 rounded-full bg-gray-500'
+              />
+              <div className="text-sm">
+                <p className="font-medium text-gray-800 dark:text-white">{user.username}</p>
+              </div>
+            </ListGroup.Item>
+          ))}
+      </ListGroup>
+    </div>
         </div>
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
           <div className='flex justify-between  p-3 text-sm font-semibold'>
@@ -157,23 +153,23 @@ export default function DashboardComp() {
               <Link to={'/dashboard?tab=comments'}>See all</Link>
             </Button>
           </div>
-          <Table hoverable>
-            <Table.Head>
-              <Table.HeadCell>Comment content</Table.HeadCell>
-              <Table.HeadCell>Likes</Table.HeadCell>
-            </Table.Head>
-            {comments &&
-              comments.map((comment) => (
-                <Table.Body key={comment._id} className='divide-y'>
-                  <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                    <Table.Cell className='w-96'>
-                        <p className='line-clamp-2'>{comment.content}</p>
-                    </Table.Cell>
-                    <Table.Cell>{comment.numberOfLikes}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
-          </Table>
+          <div className="w-full max-w-lg mx-auto">
+      <ListGroup className="divide-y divide-gray-200 dark:divide-gray-700">
+        {comments &&
+          comments.map((comment) => (
+            <ListGroup.Item key={comment._id} className="flex items-start gap-4 py-3">
+              <div className="flex-1">
+                <p className="line-clamp-2 text-sm text-gray-800 dark:text-white">
+                  {comment.content}
+                </p>
+              </div>
+              <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                {comment.numberOfLikes} Likes
+              </div>
+            </ListGroup.Item>
+          ))}
+      </ListGroup>
+    </div>
         </div>
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
           <div className='flex justify-between  p-3 text-sm font-semibold'>
@@ -182,29 +178,24 @@ export default function DashboardComp() {
               <Link to={'/dashboard?tab=posts'}>See all</Link>
             </Button>
           </div>
-          <Table hoverable>
-            <Table.Head>
-              <Table.HeadCell>Post image</Table.HeadCell>
-              <Table.HeadCell>Post Title</Table.HeadCell>
-              <Table.HeadCell>Category</Table.HeadCell>
-            </Table.Head>
-            {posts &&
-              posts.map((post) => (
-                <Table.Body key={post._id} className='divide-y'>
-                  <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                    <Table.Cell>
-                      <img
-                        src={post.image}
-                        alt='user'
-                        className='w-14 h-10 rounded-md bg-gray-500'
-                      />
-                    </Table.Cell>
-                    <Table.Cell className='w-96'>{post.title}</Table.Cell>
-                    <Table.Cell className='w-5'>{post.category}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
-          </Table>
+          <div className="w-full max-w-lg mx-auto">
+      <ListGroup className="divide-y divide-gray-200 dark:divide-gray-700">
+        {posts &&
+          posts.map((post) => (
+            <ListGroup.Item key={post._id} className="flex items-center gap-4 py-3">
+              <img
+                src={post.image}
+                alt='post'
+                className='w-14 h-10 rounded-md bg-gray-500'
+              />
+              <div className="flex-1">
+                <p className="font-medium text-gray-800 dark:text-white">{post.title}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{post.category}</p>
+              </div>
+            </ListGroup.Item>
+          ))}
+      </ListGroup>
+    </div>
         </div>
       </div>
     </div>
