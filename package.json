@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx kill-port 3000 && nodemon API/index.js",
     "start": "node API/index.js",
-      "build": "npm install && npm install --prefix client && npm run build --prefix client"
+    "build": "npm install && npm install --prefix API && npm run build --prefix API"
     
   },
   "keywords": [],
