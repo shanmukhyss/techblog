@@ -53,7 +53,7 @@ export default function Header() {
       {/* Logo */}
       <Link to="/" className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
         <span className="px-3 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white text-xl">
-          TECH-Blog
+        Scriptify
         </span>
       </Link>
 

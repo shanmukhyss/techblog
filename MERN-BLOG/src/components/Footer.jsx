@@ -4,7 +4,7 @@ import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble, BsLinkedin } 
 
 export default function FooterCom() {
   return (
-    <Footer container className="bg-gray-100 dark:bg-gray-900 py-8"> {/* Removed border-t-8 border-teal-500 */}
+    <Footer container className="bg-gray-100 dark:bg-gray-900 "> 
       <div className="w-full max-w-7xl mx-auto px-6">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
@@ -12,7 +12,7 @@ export default function FooterCom() {
           <div className="mb-6 md:mb-0">
             <Link to="/" className="text-xl sm:text-2xl font-semibold dark:text-white flex items-center">
               <span className="px-3 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-                TECH-Blog
+              Scriptify
               </span>
             </Link>
           </div>
@@ -25,17 +25,17 @@ export default function FooterCom() {
                 <Footer.Link href="/projects" target="_blank" rel="noopener noreferrer">
                   PROJECTS
                 </Footer.Link>
-                <Footer.Link href="/about">TECH-Blog</Footer.Link>
+                <Footer.Link href="/about">Scriptify</Footer.Link>
               </Footer.LinkGroup>
             </div>
 
             <div>
-              <Footer.Title title="Follow Us" className="dark:text-white" />
+              <Footer.Title title="Support" className="dark:text-white" />
               <Footer.LinkGroup col>
                 <Footer.Link href="#" target="_blank" rel="noopener noreferrer">
-                  Github
+                  Report Bug
                 </Footer.Link>
-                <Footer.Link href="#">Discord</Footer.Link>
+                <Footer.Link href="#">Contact Us </Footer.Link>
               </Footer.LinkGroup>
             </div>
 
@@ -95,10 +95,10 @@ export default function FooterCom() {
             fill: currentColor;
           }
           .icon-hover:nth-child(1):hover { color: #1877F2; } /* Facebook */
-          .icon-hover:nth-child(2):hover { color: #E4405F; } /* Instagram */
+          .icon-hover:nth-child(2):hover { color: #1877F2; } /* Linkend In */
           .icon-hover:nth-child(3):hover { color: #1DA1F2; } /* Twitter */
           .icon-hover:nth-child(4):hover { color: #171515; } /* GitHub Default */
-          .icon-hover:nth-child(5):hover { color: #EA4C89; } /* Dribbble */
+          
 
           /* Fix GitHub Icon Visibility in Dark Mode */
           .dark .github-icon:hover {

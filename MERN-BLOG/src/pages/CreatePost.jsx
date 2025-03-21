@@ -71,7 +71,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="p-5 w-full max-w-5xl mx-auto min-h-[calc(100vh-4rem-8rem)] transition-all duration-300 bg-white dark:bg-gray-900">
+    <div className="p-5 w-full max-w-full  min-h-[calc(100vh-4rem-8rem)] transition-all duration-300 bg-white dark:bg-gray-900">
       <h1 className="text-center text-3xl my-7 font-semibold text-gray-800 dark:text-gray-100">
         Create a Post
       </h1>

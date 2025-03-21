@@ -1,116 +1,90 @@
-import { Sidebar } from 'flowbite-react';
-import {
-  HiUser,
-  HiArrowSmRight,
-  HiDocumentText,
-  HiOutlineUserGroup,
-  HiAnnotation,
-  HiChartPie,
-} from 'react-icons/hi';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { HiMenu, HiX, HiUser, HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiAnnotation, HiChartPie } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { signoutSuccess } from '../redux/user/userSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 export default function DashSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [tab, setTab] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
-    if (tabFromUrl) {
-      setTab(tabFromUrl);
-    }
+    if (tabFromUrl) setTab(tabFromUrl);
   }, [location.search]);
+
   const handleSignout = async () => {
-    const confirmSignout = window.confirm("Are you sure you want to sign out?");
-    if (!confirmSignout) return; // Stop if the user cancels
-  
+    if (!window.confirm("Are you sure you want to sign out?")) return;
+
     try {
       const res = await fetch('/api/user/signout', { method: 'POST' });
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.message);
+        alert(data.message);
       } else {
         dispatch(signoutSuccess());
-        toast.success('Signed out successfully!');
+        alert('Signed out successfully!');
       }
     } catch (error) {
-      toast.error('Something went wrong!');
+      alert('Something went wrong!');
     }
   };
-  
+
   return (
-    <Sidebar className='w-full md:w-56 h-screen'>
-      <Sidebar.Items>
-        <Sidebar.ItemGroup className='flex flex-col gap-1'>
-          {currentUser && currentUser.isAdmin && (
-            <Link to='/dashboard?tab=dash'>
-              <Sidebar.Item
-                active={tab === 'dash' || !tab}
-                icon={HiChartPie}
-                as='div'
-              >
-                Dashboard
-              </Sidebar.Item>
+    <>
+      {/* Mobile Toggle Button */}
+      <button 
+        className="p-3 text-gray-900 dark:text-white bg-gray-200 dark:bg-gray-800 fixed top-4 left-4 z-50 rounded-lg md:hidden" 
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+      </button>
+
+      {/* Sidebar */}
+      <div 
+        className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-5 w-64 transition-transform md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-64'} md:relative md:flex md:w-64 shadow-lg`}
+      >
+        <nav className="flex flex-col gap-4">
+          {currentUser?.isAdmin && (
+            <Link to="/dashboard?tab=dash" className={`flex items-center gap-2 p-2 rounded-lg ${tab === 'dash' ? 'bg-gray-200 dark:bg-gray-800' : 'hover:bg-gray-200 dark:hover:bg-gray-800'}`}>
+              <HiChartPie size={20} />
+              Dashboard
             </Link>
           )}
-          <Link to='/dashboard?tab=profile'>
-            <Sidebar.Item
-              active={tab === 'profile'}
-              icon={HiUser}
-              label={currentUser.isAdmin ? 'Admin' : 'User'}
-              labelColor='dark'
-              as='div'
-            >
-              Profile
-            </Sidebar.Item>
+          <Link to="/dashboard?tab=profile" className={`flex items-center gap-2 p-2 rounded-lg ${tab === 'profile' ? 'bg-gray-200 dark:bg-gray-800' : 'hover:bg-gray-200 dark:hover:bg-gray-800'}`}>
+            <HiUser size={20} />
+            {currentUser?.isAdmin ? 'Admin' : 'User'} Profile
           </Link>
-          {currentUser.isAdmin && (
-            <Link to='/dashboard?tab=posts'>
-              <Sidebar.Item
-                active={tab === 'posts'}
-                icon={HiDocumentText}
-                as='div'
-              >
-                Posts
-              </Sidebar.Item>
-            </Link>
-          )}
-          {currentUser.isAdmin && (
+
+          {currentUser?.isAdmin && (
             <>
-              <Link to='/dashboard?tab=users'>
-                <Sidebar.Item
-                  active={tab === 'users'}
-                  icon={HiOutlineUserGroup}
-                  as='div'
-                >
-                  Users
-                </Sidebar.Item>
+              <Link to="/dashboard?tab=posts" className={`flex items-center gap-2 p-2 rounded-lg ${tab === 'posts' ? 'bg-gray-200 dark:bg-gray-800' : 'hover:bg-gray-200 dark:hover:bg-gray-800'}`}>
+                <HiDocumentText size={20} />
+                Posts
               </Link>
-              <Link to='/dashboard?tab=comments'>
-                <Sidebar.Item
-                  active={tab === 'comments'}
-                  icon={HiAnnotation}
-                  as='div'
-                >
-                  Comments
-                </Sidebar.Item>
+              <Link to="/dashboard?tab=users" className={`flex items-center gap-2 p-2 rounded-lg ${tab === 'users' ? 'bg-gray-200 dark:bg-gray-800' : 'hover:bg-gray-200 dark:hover:bg-gray-800'}`}>
+                <HiOutlineUserGroup size={20} />
+                Users
+              </Link>
+              <Link to="/dashboard?tab=comments" className={`flex items-center gap-2 p-2 rounded-lg ${tab === 'comments' ? 'bg-gray-200 dark:bg-gray-800' : 'hover:bg-gray-200 dark:hover:bg-gray-800'}`}>
+                <HiAnnotation size={20} />
+                Comments
               </Link>
             </>
           )}
-          <Sidebar.Item
-            icon={HiArrowSmRight}
-            className='cursor-pointer'
-            onClick={handleSignout}
-          >
+
+          <button onClick={handleSignout} className="flex items-center gap-2 p-2 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-800">
+            <HiArrowSmRight size={20} />
             Sign Out
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-    </Sidebar>
+          </button>
+        </nav>
+      </div>
+
+      
+    </>
   );
 }
